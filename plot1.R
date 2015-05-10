@@ -1,0 +1,6 @@
+df <- fread("household_power_consumption.txt", nrows = 2880, skip = "1/2/2007")
+variables <- colnames(fread("household_power_consumption.txt", nrows = 1))
+setnames(df, 1:9, variables)
+png(file = "plot1.png")
+hist(df$Global_active_power, co = 2, xlab = "Global Active Power (kilowatts)", main = "Global Active Power")
+dev.off()

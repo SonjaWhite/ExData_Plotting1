@@ -1,0 +1,13 @@
+#(load data.table)
+df <- fread("household_power_consumption.txt", nrows = 2880, skip = "1/2/2007", na.strings = "?")
+variables <- colnames(fread("household_power_consumption.txt", nrows = 1))
+setnames(df, 1:9, variables)
+png(file = "plot3.png")
+df$date_time <-(paste(df$Date, df$Time))
+plot(strptime(df$date_time, format = "%d/%m/%Y %H:%M:%S"), df$Sub_metering_1, type = "l", xlab = "", 
+     ylab = "Energy sub metering")
+lines(strptime(df$date_time, format = "%d/%m/%Y %H:%M:%S"), df$Sub_metering_2, col = "red")
+lines(strptime(df$date_time, format = "%d/%m/%Y %H:%M:%S"), df$Sub_metering_3, col = "blue")
+legend("topright", c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"), lty=c(1,1,1),col=c("black", "red", "blue")) 
+par(bg = "white")
+dev <- dev.off()
